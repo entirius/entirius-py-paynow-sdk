@@ -19,8 +19,11 @@ Paynow payment gateway SDK — distribution `entirius-py-paynow-sdk`, import `pa
 - Git flow: `master` (production) + `develop` (integration); changes land via PR; semver tag on `master`.
 - Never rename the import package `paynow_sdk` — it is a public API contract.
 - Default: do not commit — git is the user's call.
+- No AI attribution in commits or PR descriptions.
 
 ## Architecture
 
-`paynow_sdk/`: `PayNow` client (`services/`), HMAC signing in `services/auth.py`, DTOs in `dto/`.
-Runtime dependency: `requests`. Tests are local (signature, DTO, client init) — no network.
+`src/paynow_sdk/`: `services/client.py` holds the `PayNow` client (create payment, payment status) over the
+Paynow REST API; HMAC signing lives in `services/auth.py`, the HTTP wrapper in `services/request.py`, DTOs in
+`dto/`, response checks in `validators/`. Runtime dependency: `requests`.
+Tests are local (signature, DTO, client init); they make no network call.
